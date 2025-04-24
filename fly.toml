@@ -1,0 +1,40 @@
+app = "robooster"
+kill_signal = "SIGINT"
+kill_timeout = 5
+primary_region = "sin"
+
+[build]
+  dockerfile = "deploy/Dockerfile"
+
+[env]
+  PORT = "8000"
+
+[[services]]
+  internal_port = 8000
+  protocol = "tcp"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
+
+[mounts]
+  source = "postgres_data"
+  destination = "/data"
+
+[[vm.cpu_kind]]
+  count = 1
+  kind = "shared"
+
+[[vm.memory]]
+  size_mb = 512
