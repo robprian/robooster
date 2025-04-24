@@ -63,7 +63,7 @@ GOOGLE_PROJECT_ID=your_project_id
 
 1. Clone repository
 ```bash
-git clone https://github.com/username/robooster.git
+git clone https://github.com/robprian/robooster.git
 cd robooster
 ```
 
